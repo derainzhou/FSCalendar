@@ -172,7 +172,11 @@
         CGFloat *heights = malloc(rowSize);
         if (!self.calendar.floatingMode) {
             CGFloat contentHeight = self.collectionView.fs_height - self.sectionInsets.top - self.sectionInsets.bottom;
-            FSCalendarSliceCake(contentHeight, rowCount, heights);
+            // DEBUG: 指定cell高度
+            // FSCalendarSliceCake(contentHeight, rowCount, heights);
+            for (int i = 0; i < rowCount; i++) {
+                heights[i] = self.calendar.rowHeight;
+            }
         } else {
             for (int i = 0; i < rowCount; i++) {
                 heights[i] = self.estimatedItemSize.height;
@@ -542,9 +546,11 @@
     switch (totalRows) {
         case 4:
         case 5: {
-            CGFloat contentHeight = self.collectionView.fs_height - self.sectionInsets.top - self.sectionInsets.bottom;
-            CGFloat rowSpan = contentHeight/totalRows;
-            return (row + 0.5) * rowSpan - height * 0.5 + self.sectionInsets.top;
+            // DEBUG: cell等距
+            // CGFloat contentHeight = self.collectionView.fs_height - self.sectionInsets.top - self.sectionInsets.bottom;
+            // CGFloat rowSpan = contentHeight/totalRows;
+            // return (row + 0.5) * rowSpan - height * 0.5 + self.sectionInsets.top;
+            return self.tops[row];
         }
         case 6:
         default:
